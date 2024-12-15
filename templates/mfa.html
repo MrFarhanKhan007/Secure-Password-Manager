@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Factor Authentication</title>
+</head>
+<body>
+    <h1>Multi-Factor Authentication</h1>
+    <p>Scan the QR code below with your authenticator app:</p>
+    <img src="data:image/png;base64,{{ qr_image }}" alt="QR Code">
+    <form action="/mfa" method="POST">
+        <input type="text" name="otp" placeholder="Enter OTP" required>
+        <button type="submit">Verify</button>
+    </form>
+</body>
+</html>
+
