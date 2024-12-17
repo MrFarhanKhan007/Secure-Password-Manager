@@ -1,13 +1,43 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Password Manager</title>
+    <title>Secure Password Manager</title>
     <link rel="stylesheet" href="/static/css/styles.css">
+    <script>
+        // Check for saved dark mode preference
+        const isDarkMode = localStorage.getItem("dark-mode") === "enabled";
+    
+        // Apply dark mode on load
+        if (isDarkMode) {
+            document.body.classList.add("dark-mode");
+        }
+    
+        // Toggle dark mode
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+            const darkModeEnabled = document.body.classList.contains("dark-mode");
+            localStorage.setItem("dark-mode", darkModeEnabled ? "enabled" : "disabled");
+        }
+    </script>
 </head>
 <body>
-    <h1>Welcome to Password Manager</h1>
-    <a href="/login">Login</a>
-    <a href="/register">Register</a>
+    <!-- Dark Mode Toggle -->
+    <div class="toggle-container">
+        <button class="toggle-button" onclick="toggleDarkMode()">Toggle Light/Dark Mode</button>
+    </div>
+
+    <!-- Centered Intro Message -->
+    <div class="onboarding-container">
+        <h1>Welcome to <span>Secure Password Manager</span></h1>
+        <p>Your all-in-one tool to store, manage, and secure your passwords.</p>
+
+        <!-- Login and Register Buttons -->
+        <div class="button-container">
+            <a href="/login" class="button login-button">Login</a>
+            <a href="/register" class="button register-button">Register</a>
+        </div>
+    </div>
 </body>
 </html>

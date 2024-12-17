@@ -1,5 +1,40 @@
-<form action="/register" method="post">
-    <input type="text" name="username" placeholder="Username" required>
-    <input type="password" name="password" placeholder="Master Password" required>
-    <button type="submit">Register</button>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <!-- Link to the external CSS -->
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <script>
+        // Check for saved dark mode preference
+        const isDarkMode = localStorage.getItem("dark-mode") === "enabled";
+
+        // Apply dark mode on load
+        if (isDarkMode) {
+            document.body.classList.add("dark-mode");
+        }
+
+        // Toggle dark mode
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+            const darkModeEnabled = document.body.classList.contains("dark-mode");
+            localStorage.setItem("dark-mode", darkModeEnabled ? "enabled" : "disabled");
+        }
+    </script>
+</head>
+<body>
+    <!-- Dark Mode Toggle -->
+    <div class="toggle-container">
+        <button class="toggle-button" onclick="toggleDarkMode()">Toggle Light/Dark Mode</button>
+    </div>
+
+    <!-- Registration Form -->
+    <h2>Register</h2>
+    <form action="/register" method="post">
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Master Password" required>
+        <button type="submit">Register</button>
+    </form>
+</body>
+</html>

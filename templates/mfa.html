@@ -4,15 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Multi-Factor Authentication</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <script>
+        // Check for saved dark mode preference
+        const isDarkMode = localStorage.getItem("dark-mode") === "enabled";
+    
+        // Apply dark mode on load
+        if (isDarkMode) {
+            document.body.classList.add("dark-mode");
+        }
+    
+        // Toggle dark mode
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+            const darkModeEnabled = document.body.classList.contains("dark-mode");
+            localStorage.setItem("dark-mode", darkModeEnabled ? "enabled" : "disabled");
+        }
+    </script>
 </head>
 <body>
-    <h1>Multi-Factor Authentication</h1>
-    <p>Scan the QR code below with your authenticator app:</p>
-    <img src="data:image/png;base64,{{ qr_image }}" alt="QR Code">
-    <form action="/mfa" method="POST">
-        <input type="text" name="otp" placeholder="Enter OTP" required>
-        <button type="submit">Verify</button>
-    </form>
+    <!-- Dark Mode Toggle -->
+    <div class="toggle-container">
+        <button class="toggle-button" onclick="toggleDarkMode()">Toggle Light/Dark Mode</button>
+    </div>
+
+    <div class="mfa-container">
+        <h1>Multi-Factor Authentication</h1>
+        <p>Scan the QR code below with your authenticator app:</p>
+        
+        <!-- QR Code Display -->
+        <div class="qr-code-container">
+            <img src="data:image/png;base64,{{ qr_image }}" alt="QR Code" class="qr-code">
+        </div>
+
+        <!-- OTP Form -->
+        <form action="/mfa" method="POST" class="mfa-form">
+            <div class="form-group">
+                <input type="text" name="otp" placeholder="Enter OTP" required>
+            </div>
+            <button type="submit" class="submit-button">Verify</button>
+        </form>
+    </div>
 </body>
 </html>
-
