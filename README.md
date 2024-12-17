@@ -131,6 +131,11 @@ This project is a **Password Manager** application with **Multi-Factor Authentic
 
   - Thanks to pyotp for implementing OTP generation.
   
-  - Thanks to MySQL for the database engine.
+  - Thanks to MySQL for the database engine
 
   ## Sample video attached below: 
+  - First part of the video shows the website
+    
+  - Second part of the video shows how to setup the MySQL database from the MySQL CMD Line(which you will get from the MySQL toolkit)
+
+https://github.com/user-attachments/assets/556fd9cf-9158-4e66-aa40-e0eda739924e
