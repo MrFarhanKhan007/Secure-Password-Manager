@@ -318,6 +318,64 @@ img {
     height: auto;
 }
 
+/* Saved Passwords Table */
+.passwords-table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    transition: background-color 0.3s ease;
+}
+
+body.dark-mode .passwords-table {
+    background-color: #2e2e2e;
+    color: var(--text-dark);
+}
+
+.passwords-table th, .passwords-table td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.passwords-table th {
+    background-color: var(--accent-color);
+    color: white;
+    font-size: 1em;
+    text-transform: uppercase;
+}
+
+.passwords-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+body.dark-mode .passwords-table tr:nth-child(even) {
+    background-color: #333;
+}
+
+.passwords-table tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+body.dark-mode .passwords-table tr:hover {
+    background-color: #444;
+}
+
+.passwords-table button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2em;
+    transition: color 0.3s ease;
+}
+
+.passwords-table button:hover {
+    color: var(--accent-color);
+}
+
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .onboarding-container {

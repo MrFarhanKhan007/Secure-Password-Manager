@@ -6,7 +6,7 @@
     <title>Dashboard</title>
     <link rel="stylesheet" href="/static/css/styles.css">
     <script>
-        // Handle browser back button
+        // Handle browser back button with logout confirmation
         window.history.pushState(null, "", location.href);
         window.onpopstate = function () {
             showLogoutPopup();
@@ -21,24 +21,41 @@
             }
         }
 
+        // Dark Mode Toggle Functionality
         function toggleDarkMode() {
             document.body.classList.toggle("dark-mode");
             const darkModeEnabled = document.body.classList.contains("dark-mode");
             localStorage.setItem("dark-mode", darkModeEnabled ? "enabled" : "disabled");
         }
 
-        // Apply dark mode on load
-        if (localStorage.getItem("dark-mode") === "enabled") {
-            document.body.classList.add("dark-mode");
+        // Apply dark mode on page load
+        window.onload = function () {
+            if (localStorage.getItem("dark-mode") === "enabled") {
+                document.body.classList.add("dark-mode");
+            }
+        };
+
+        // Toggle password visibility
+        function togglePasswordVisibility(passwordFieldId, button) {
+            const passwordField = document.getElementById(passwordFieldId);
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                button.textContent = "🙈"; // Change button icon to hide
+            } else {
+                passwordField.type = "password";
+                button.textContent = "👁️"; // Change button icon to show
+            }
         }
     </script>
 </head>
 <body>
+    <!-- Toggle Buttons -->
     <div class="toggle-container">
         <button class="toggle-button" onclick="toggleDarkMode()">Toggle Light/Dark Mode</button>
         <button class="logout" onclick="showLogoutPopup()">Logout</button>
     </div>
 
+    <!-- Dashboard Content -->
     <h2>Welcome to Your Dashboard</h2>
 
     <!-- Add Password Form -->
@@ -49,14 +66,36 @@
         <button type="submit">Add Password</button>
     </form>
 
+    <!-- Saved Passwords Section -->
     <h3>Saved Passwords</h3>
-    <!-- Dynamically display saved passwords -->
-    {% for password in passwords %}
-    <div class="password-container">
-        <span>{{ password.site_name }} - {{ password.username }}</span>
-        <input type="password" value="{{ password.decrypted_password }}" id="password-{{ loop.index }}" readonly>
-        <button type="button" onclick="togglePasswordVisibility('password-{{ loop.index }}', this)">👁️</button>
-    </div>
-    {% endfor %}
+
+    <!-- Saved Passwords Table -->
+    <table class="passwords-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Website</th>
+                <th>Username</th>
+                <th>Password</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for password in passwords %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ password.site_name }}</td>
+                <td>{{ password.username }}</td>
+                <td>
+                    <input type="password" value="{{ password.decrypted_password }}" 
+                           id="password-{{ loop.index }}" readonly>
+                </td>
+                <td>
+                    <button onclick="togglePasswordVisibility('password-{{ loop.index }}', this)">👁️</button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </body>
 </html>
