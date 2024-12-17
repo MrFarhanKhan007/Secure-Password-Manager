@@ -96,7 +96,6 @@ def dashboard():
 
     return render_template('dashboard.html', passwords=passwords)
 
-
 @app.route('/mfa', methods=['GET', 'POST'])
 def mfa():
     if 'mfa_secret' not in session:
