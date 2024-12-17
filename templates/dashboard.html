@@ -1,11 +1,52 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+    <style>
+        .password-container {
+            display: flex;
+            align-items: center;
+        }
+        .password-container input {
+            margin-right: 10px;
+        }
+        button.logout {
+            margin-top: 20px;
+            background-color: red;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        // Prevent browser back button
+        window.history.pushState(null, "", location.href);
+        window.onpopstate = function () {
+            if (confirm("Do you want to log out?")) {
+                window.location.href = "/logout";
+            } else {
+                window.history.pushState(null, "", location.href);
+            }
+        };
+
+        // Toggle password visibility
+        function togglePasswordVisibility(id) {
+            const passwordField = document.getElementById(id);
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+            } else {
+                passwordField.type = "password";
+            }
+        }
+    </script>
 </head>
 <body>
     <h2>Welcome to Your Dashboard</h2>
+    
+    <!-- Add Password Form -->
     <form action="/add_password" method="post">
         <input type="text" name="site_name" placeholder="Website Name" required><br>
         <input type="text" name="username" placeholder="Username" required><br>
@@ -13,7 +54,19 @@
         <button type="submit">Add Password</button>
     </form>
 
+    <!-- Logout Button -->
+    <form action="/logout" method="GET">
+        <button type="submit" class="logout">Logout</button>
+    </form>
+
     <h3>Saved Passwords</h3>
-    <!-- Render saved passwords dynamically here -->
+    <!-- Dynamically display saved passwords -->
+    {% for password in passwords %}
+    <div class="password-container">
+        <span>{{ password.site_name }} - {{ password.username }}</span>
+        <input type="password" value="{{ password.decrypted_password }}" id="password-{{ loop.index }}" readonly>
+        <button type="button" onclick="togglePasswordVisibility('password-{{ loop.index }}')">👁️</button>
+    </div>
+    {% endfor %}
 </body>
 </html>

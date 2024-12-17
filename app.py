@@ -79,8 +79,23 @@ def login():
 def dashboard():
     if 'user_id' not in session:
         return redirect(url_for('login'))
-    # Fetch stored passwords for the user
-    return render_template('dashboard.html')
+
+    # Fetch stored passwords for the logged-in user
+    user_id = session['user_id']
+    saved_passwords = Password.query.filter_by(user_id=user_id).all()
+
+    # Decrypt passwords to display them
+    passwords = []
+    for pwd in saved_passwords:
+        decrypted_password = decrypt_password(pwd.password)
+        passwords.append({
+            'site_name': pwd.site_name,
+            'username': pwd.username,
+            'decrypted_password': decrypted_password
+        })
+
+    return render_template('dashboard.html', passwords=passwords)
+
 
 @app.route('/mfa', methods=['GET', 'POST'])
 def mfa():
@@ -122,9 +137,20 @@ def add_password():
     flash("Password added successfully!", "success")
     return redirect(url_for('dashboard'))
 
+from flask import make_response
+
+@app.after_request
+def add_no_cache_headers(response):
+    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '-1'
+    return response
+
+
 @app.route('/logout')
 def logout():
     session.clear()
+    flash("You have been logged out.", "info")
     return redirect(url_for('index'))
 
 if __name__ == "__main__":
