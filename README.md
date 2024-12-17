@@ -93,6 +93,8 @@ This project is a **Password Manager** application with **Multi-Factor Authentic
   ## Screenshots 📸
 
   Here’s a preview of what the app looks like:
+  ![Untitled design](https://github.com/user-attachments/assets/4489cc79-c8a5-4e70-9118-fcb79858f33f)
+
 
   ## Contributing 🤝
 
