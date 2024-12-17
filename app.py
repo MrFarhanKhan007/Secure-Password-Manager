@@ -94,7 +94,7 @@ def dashboard():
             'decrypted_password': decrypted_password
         })
 
-    return render_template('dashboard.html', passwords=passwords)
+    return render_template('dashboard.html', passwords=passwords) 
 
 @app.route('/mfa', methods=['GET', 'POST'])
 def mfa():
