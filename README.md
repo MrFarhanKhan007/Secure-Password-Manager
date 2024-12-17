@@ -51,7 +51,7 @@ This project is a **Password Manager** application with **Multi-Factor Authentic
 
     Requirements.txt may have the following requirements:
 
-    ```bash
+    ```txt
       flask
       flask-sqlalchemy
       flask-wtf
@@ -59,8 +59,29 @@ This project is a **Password Manager** application with **Multi-Factor Authentic
       pyotp
       qrcode
     ```
+    SQL Commands to setup the MySQL Database in your SQL command line client:
+     (Install MYSQL full client from this website first- https://dev.mysql.com/downloads/installer/)
+    ```sql
+
+    CREATE DATABASE password_manager;
+
+    CREATE TABLE passwords (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    encrypted_password TEXT NOT NULL,
+    site_name VARCHAR(255) NOT NULL
+    );
+
+    CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) UNIQUE NOT NULL,
+    password_hash TEXT NOT NULL,
+    mfa_secret VARCHAR(255) NOT NULL
+    );
+
+    ```
   
-2. **Using the Application**: 💻
+3. **Using the Application**: 💻
    
     **Sign Up / Log In**:
     
